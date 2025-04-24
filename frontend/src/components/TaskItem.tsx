@@ -7,7 +7,7 @@ interface TaskItemProps {
   onRemove: (id: number) => Promise<void>;
 }
 
-export function TaskItem({ task, onUpdate, onRemove }: TaskItemProps) {
+function TaskItem({ task, onUpdate, onRemove }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task.text);
   const editInputRef = useRef<HTMLInputElement>(null);
@@ -69,12 +69,14 @@ export function TaskItem({ task, onUpdate, onRemove }: TaskItemProps) {
             />
             <div className="flex gap-2 mt-1">
               <button
+                aria-label="save"
                 onClick={saveEdit}
                 className="text-xs bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded"
               >
                 Save
               </button>
               <button
+                aria-label="cancel"
                 onClick={cancelEditing}
                 className="text-xs bg-gray-600 hover:bg-gray-700 text-white px-2 py-1 rounded"
               >
@@ -142,3 +144,4 @@ export function TaskItem({ task, onUpdate, onRemove }: TaskItemProps) {
     </li>
   );
 } 
+export default TaskItem;

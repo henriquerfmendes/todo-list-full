@@ -1,30 +1,37 @@
-import { Task } from '../types/types';
+import { Task } from "../types/types";
 
 interface TaskStatsProps {
   tasks: Task[];
 }
 
-export function TaskStats({ tasks }: TaskStatsProps) {
-  const pendingCount = tasks.filter(t => !t.completed).length;
-  const completedCount = tasks.filter(t => t.completed).length;
+function TaskStats({ tasks }: TaskStatsProps) {
+  const pendingCount = tasks.filter((t) => !t.completed).length;
+  const completedCount = tasks.filter((t) => t.completed).length;
   const totalCount = tasks.length;
 
   return (
     <div className="mt-6 bg-gray-800/50 rounded-lg p-4 border border-gray-700">
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" data-testid="pending-stats">
           <div className="h-3 w-3 rounded-full bg-amber-400"></div>
-          <span className="text-gray-300">Pending: <span className="font-bold text-amber-400">{pendingCount}</span></span>
+          <span className="text-gray-300">
+            Pending: <span className="font-bold text-amber-400">{pendingCount}</span>
+          </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" data-testid="completed-stats">
           <div className="h-3 w-3 rounded-full bg-green-400"></div>
-          <span className="text-gray-300">Completed: <span className="font-bold text-green-400">{completedCount}</span></span>
+          <span className="text-gray-300">
+            Completed: <span className="font-bold text-green-400">{completedCount}</span>
+          </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" data-testid="total-stats">
           <div className="h-3 w-3 rounded-full bg-blue-400"></div>
-          <span className="text-gray-300">Total: <span className="font-bold text-blue-400">{totalCount}</span></span>
+          <span className="text-gray-300">
+            Total: <span className="font-bold text-blue-400">{totalCount}</span>
+          </span>
         </div>
       </div>
     </div>
   );
-} 
+}
+export default TaskStats;

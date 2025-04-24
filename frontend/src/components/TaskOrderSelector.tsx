@@ -12,7 +12,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export function TaskOrderSelector({ ordenation, setOrdenation }: TaskOrderSelectorProps) {
+function TaskOrderSelector({ ordenation, setOrdenation }: TaskOrderSelectorProps) {
   const orderOptions = {
     default: "Creation date",
     alphabetical: "Alphabetical",
@@ -66,3 +66,4 @@ export function TaskOrderSelector({ ordenation, setOrdenation }: TaskOrderSelect
     </div>
   );
 } 
+export default TaskOrderSelector;

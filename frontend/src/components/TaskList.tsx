@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import useTodoStore from "../store/useTodoStore";
 import { OrdenationType, orderTasks } from "./OrderTasks";
-import { TaskForm } from "./TaskForm";
-import { TaskItem } from "./TaskItem";
-import { TaskOrderSelector } from "./TaskOrderSelector";
-import { TaskStats } from "./TaskStats";
+import TaskForm from "./TaskForm";
+import TaskItem from "./TaskItem";
+import TaskOrderSelector from "./TaskOrderSelector";
+import TaskStats from "./TaskStats";
 import { useState } from "react";
 
 function TaskList() {

@@ -1,10 +1,10 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent } from "react";
 
 interface TaskFormProps {
   onAddTask: (text: string) => Promise<void>;
 }
 
-export function TaskForm({ onAddTask }: TaskFormProps) {
+function TaskForm({ onAddTask }: TaskFormProps) {
   const [newTask, setNewTask] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -16,7 +16,7 @@ export function TaskForm({ onAddTask }: TaskFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
+    <form role="form" onSubmit={handleSubmit} className="mb-6">
       <div className="flex flex-col sm:flex-row gap-4">
         <input
           type="text"
@@ -35,4 +35,5 @@ export function TaskForm({ onAddTask }: TaskFormProps) {
       </div>
     </form>
   );
-} 
+}
+export default TaskForm;
