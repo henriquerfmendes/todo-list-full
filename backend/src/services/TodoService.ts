@@ -28,7 +28,7 @@ export class TodoService {
     if (todos.length === 0) {
       return {
         data: [],
-        message: "No to-do found",
+        message: "No tasks found",
       };
     }
 
@@ -38,7 +38,7 @@ export class TodoService {
   async getById(id: number): Promise<Todo> {
     const todo = await this.todoRepository.findById(id);
     if (!todo) {
-      throw new AppError("To-do not found", 404);
+      throw new AppError("Task not found", 404);
     }
     return todo;
   }
@@ -49,7 +49,7 @@ export class TodoService {
   ): Promise<Todo> {
     const existingTodo = await this.todoRepository.findById(id);
     if (!existingTodo) {
-      throw new AppError("To-do not found", 404);
+      throw new AppError("Task not found", 404);
     }
 
     validateUpdateFields(data.text, data.completed);
@@ -69,7 +69,7 @@ export class TodoService {
     const updatedTodo = await this.todoRepository.update(id, updateData);
 
     if (!updatedTodo) {
-      throw new AppError("Failed to update To-do", 500);
+      throw new AppError("Failed to update task", 500);
     }
 
     return updatedTodo;
@@ -78,7 +78,7 @@ export class TodoService {
   async delete(id: number): Promise<void> {
     const todo = await this.todoRepository.findById(id);
     if (!todo) {
-      throw new AppError("To-do not found", 404);
+      throw new AppError("Task not found", 404);
     }
     await this.todoRepository.delete(id);
   }
