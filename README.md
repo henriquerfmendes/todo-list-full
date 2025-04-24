@@ -1,6 +1,6 @@
-# To-do API
+# Task Manager - To-do List - Full Stack Project
 
-API REST para gerenciamento de tarefas, construída com Node.js, Express e TypeScript.
+Projeto full stack para gerenciamento de tarefas, construída com Node.js, Express, React e TypeScript.
 
 ## Tecnologias Utilizadas
 
@@ -236,9 +236,9 @@ A documentação completa da API está disponível através do Swagger UI:
 
 ---
 
-# To-do API
+# Task Manager - To-do List - Full Stack Project - English
 
-REST API for task management, built with Node.js, Express and TypeScript.
+Full stack project for task management, built with Node.js, Express, React and TypeScript.
 
 ## Technologies Used
 
