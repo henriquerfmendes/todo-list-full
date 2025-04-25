@@ -48,7 +48,6 @@ export const todoApi = {
       }
 
       const data = await response.json();
-      console.log("data: ",data);
       return data.data.map(mapApiTaskToTask);
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
@@ -88,7 +87,6 @@ export const todoApi = {
       }
 
       const data = await response.json();
-      console.log("data: ",data);
       return mapApiTaskToTask(data);
     } catch (error) {
       console.error(`Failed to update task ${id}: `, error);
