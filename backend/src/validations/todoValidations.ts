@@ -1,3 +1,4 @@
+import { log } from "console";
 import { AppError } from "../errors/AppError";
 
 export function validateText(text: string): void {

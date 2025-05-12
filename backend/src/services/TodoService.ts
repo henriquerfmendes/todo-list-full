@@ -9,77 +9,74 @@ import {
 export class TodoService {
   constructor(private todoRepository: ITodoRepository) {}
 
-  async create(text: string): Promise<Todo> {
+  async create(text: string, userId: string, token: string): Promise<Todo> {
     validateText(text);
 
-    return this.todoRepository.create({
-      text: text.trim(),
-      completed: false,
-      created_at: new Date(),
-      is_deleted: false,
-      deleted_at: null,
-      updated_at: null,
-    });
-  }
-
-  async getAll(): Promise<{ data: Todo[]; message?: string }> {
-    const todos = await this.todoRepository.findAll();
-
-    if (todos.length === 0) {
-      return {
-        data: [],
-        message: "No tasks found",
-      };
+    const tasksCount = await this.getUserTasksCount(userId, token);
+    if (tasksCount >= Number(process.env.MAX_TASKS_PER_USER)) {
+      throw new AppError("User has reached the maximum number of tasks", 403);
     }
 
-    return { data: todos };
+    return this.todoRepository.create(
+      {
+        text: text.trim(),
+        completed: false,
+        created_at: new Date(),
+        is_deleted: false,
+        deleted_at: null,
+        updated_at: null,
+      },
+      userId,
+      token
+    );
   }
 
-  async getById(id: number): Promise<Todo> {
-    const todo = await this.todoRepository.findById(id);
+  async getAll(userId: string, token: string): Promise<Todo[]> {
+    return this.todoRepository.findAll(userId, token);
+  }
+
+  async getById(
+    id: number,
+    userId: string,
+    token: string
+  ): Promise<Todo | null> {
+    const todo = await this.todoRepository.findById(id, userId, token);
     if (!todo) {
-      throw new AppError("Task not found", 404);
+      throw new AppError(`Todo with id ${id} not found`, 404);
     }
     return todo;
   }
 
   async update(
     id: number,
-    data: { text?: string; completed?: boolean }
-  ): Promise<Todo> {
-    const existingTodo = await this.todoRepository.findById(id);
-    if (!existingTodo) {
-      throw new AppError("Task not found", 404);
-    }
+    updates: Partial<Todo>,
+    userId: string,
+    token: string
+  ): Promise<Todo | null> {
+    const existingTodo = await this.getById(id, userId, token);
 
-    validateUpdateFields(data.text, data.completed);
+    validateUpdateFields(updates.text, updates.completed);
 
-    const updateData: Partial<Todo> = {
+    const updatedFields: Partial<Todo> = {
+      ...updates,
       updated_at: new Date(),
     };
 
-    if (data.text) {
-      updateData.text = data.text.trim();
-    }
-
-    if (data.completed !== undefined) {
-      updateData.completed = data.completed;
-    }
-
-    const updatedTodo = await this.todoRepository.update(id, updateData);
-
-    if (!updatedTodo) {
-      throw new AppError("Failed to update task", 500);
-    }
-
-    return updatedTodo;
+    return this.todoRepository.update(id, updatedFields, userId, token);
   }
 
-  async delete(id: number): Promise<void> {
-    const todo = await this.todoRepository.findById(id);
-    if (!todo) {
-      throw new AppError("Task not found", 404);
-    }
-    await this.todoRepository.delete(id);
+  async delete(id: number, userId: string, token: string): Promise<void> {
+    await this.getById(id, userId, token);
+
+    const updates = {
+      is_deleted: true,
+      deleted_at: new Date(),
+    };
+
+    await this.todoRepository.update(id, updates, userId, token);
+  }
+
+  async getUserTasksCount(userId: string, token: string): Promise<number> {
+    return this.todoRepository.countTasksByUserId(userId, token);
   }
 }

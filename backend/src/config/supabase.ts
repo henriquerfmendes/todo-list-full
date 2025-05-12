@@ -10,4 +10,9 @@ if (!supabaseUrl || !supabaseKey) {
     throw new Error('Supabase credentials are required');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+    auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+    }
+});

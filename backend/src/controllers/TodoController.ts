@@ -1,65 +1,73 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { TodoService } from "../services/TodoService";
-import { TodoRepository } from "../repositories/TodoRepository";
+import { getAuthInfo } from "../middleware/auth";
 
 export class TodoController {
-  private todoService: TodoService;
+  constructor(private todoService: TodoService) {}
 
-  constructor() {
-    const todoRepository = new TodoRepository();
-    this.todoService = new TodoService(todoRepository);
+  async getAll(req: Request, res: Response) {
+    try {
+      const { userId, token } = getAuthInfo(req);
+      const todos = await this.todoService.getAll(userId, token);
+      return res.json({ data: todos });
+    } catch (error) {
+      console.error("Error in getAll:", error);
+      return res.status(500).json({ error: "Failed to fetch todos" });
+    }
   }
 
-  create = async (req: Request, res: Response, next: NextFunction) => {
+  async getById(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const { userId, token } = getAuthInfo(req);
+      const todo = await this.todoService.getById(id, userId, token);
+      return res.json(todo);
+    } catch (error) {
+      console.error("Error in getById:", error);
+      return res
+        .status(500)
+        .json({ error: `Failed to fetch todo ${req.params.id}` });
+    }
+  }
+
+  async create(req: Request, res: Response) {
     try {
       const { text } = req.body;
-      const todo = await this.todoService.create(text);
+      const { userId, token } = getAuthInfo(req);
+      const todo = await this.todoService.create(text, userId, token);
       return res.status(201).json(todo);
     } catch (error) {
-      next(error);
+      console.error("Error in create:", error);
+      return res.status(500).json({ error: "Failed to create todo" });
     }
-  };
+  }
 
-  getAll = async (_req: Request, res: Response, next: NextFunction) => {
+  async update(req: Request, res: Response) {
     try {
-      const todos = await this.todoService.getAll();
-      return res.status(200).json(todos);
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const { userId, token } = getAuthInfo(req);
+      const todo = await this.todoService.update(id, updates, userId, token);
+      return res.json(todo);
     } catch (error) {
-      next(error);
+      console.error("Error in update:", error);
+      return res
+        .status(500)
+        .json({ error: `Failed to update todo ${req.params.id}` });
     }
-  };
+  }
 
-  getById = async (req: Request, res: Response, next: NextFunction) => {
+  async delete(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const todo = await this.todoService.getById(Number(id));
-      return res.status(200).json(todo);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  update = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = req.params;
-      const { text, completed } = req.body;
-      const todo = await this.todoService.update(Number(id), {
-        text,
-        completed,
-      });
-      return res.status(200).json(todo);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  delete = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = req.params;
-      await this.todoService.delete(Number(id));
+      const id = parseInt(req.params.id);
+      const { userId, token } = getAuthInfo(req);
+      await this.todoService.delete(id, userId, token);
       return res.status(204).send();
     } catch (error) {
-      next(error);
+      console.error("Error in delete:", error);
+      return res
+        .status(500)
+        .json({ error: `Failed to delete todo ${req.params.id}` });
     }
-  };
+  }
 }

@@ -1,8 +1,9 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import todoRoutes from './routes/todoRoutes';
-import { errorMiddleware } from './middleware/errorMiddleware';
+import { AuthController } from './controllers/AuthController';
+import { authMiddleware } from './middleware/auth';
 import swaggerDocument from './docs/swagger.json';
 
 const app = express();
@@ -12,10 +13,24 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+const authController = new AuthController();
+
+app.post('/api/auth/register', async (req: Request, res: Response) => {
+    await authController.register(req, res);
+});
+app.post('/api/auth/login', async (req: Request, res: Response) => {
+    await authController.login(req, res);
+});
+app.post('/api/auth/logout', async (req: Request, res: Response) => {
+    await authController.logout(req, res);
+});
+
 app.use('/api/todos', todoRoutes);
 
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    errorMiddleware(err, req, res, next);
+app.get('/api/user', (req, res, next) => {
+  authMiddleware(req, res, next);
+}, (req, res) => {
+  authController.getUser(req, res);
 });
 
 export default app;

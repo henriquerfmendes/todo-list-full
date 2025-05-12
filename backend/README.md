@@ -107,6 +107,10 @@ backend/
 - **DELETE /api/todos/:id**
   - Remove uma tarefa (soft delete)
 
+## Autenticação e Usuários
+
+Esta API utiliza o sistema de autenticação do Supabase. Não há uma tabela explícita de usuários no banco de dados, pois o Supabase já fornece uma tabela `auth.users` integrada que gerencia todos os aspectos de autenticação, incluindo registro, login e gerenciamento de sessões.
+
 ## Documentação
 
 A documentação completa da API está disponível em:
@@ -231,6 +235,10 @@ backend/
 
 - **DELETE /api/todos/:id**
   - Removes a task (soft delete)
+
+## Authentication and Users
+
+This API uses Supabase's authentication system. There is no explicit users table in the database, as Supabase already provides an integrated `auth.users` table that manages all authentication aspects, including registration, login, and session management.
 
 ## Documentation
 
