@@ -53,7 +53,7 @@ export class TodoService {
     userId: string,
     token: string
   ): Promise<Todo | null> {
-    const existingTodo = await this.getById(id, userId, token);
+    await this.getById(id, userId, token);
 
     validateUpdateFields(updates.text, updates.completed);
 

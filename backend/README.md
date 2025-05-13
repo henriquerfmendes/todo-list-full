@@ -8,6 +8,7 @@ API REST para gerenciamento de tarefas, construída com Node.js, Express e TypeS
 - **Express**: Framework web para Node.js
 - **TypeScript**: Superset tipado do JavaScript
 - **Supabase**: Banco de dados PostgreSQL como serviço
+- **Zod**: Validação de email e senha
 - **Swagger**: Documentação da API
 
 ## Pré-requisitos
@@ -137,6 +138,7 @@ REST API for task management, built with Node.js, Express and TypeScript.
 - **Express**: Web framework for Node.js
 - **TypeScript**: Typed superset of JavaScript
 - **Supabase**: PostgreSQL database as a service
+- **Zod**: Email and password validation
 - **Swagger**: API documentation
 
 ## Prerequisites

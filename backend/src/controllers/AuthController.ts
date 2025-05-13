@@ -1,15 +1,18 @@
 import { Request, Response } from "express";
 import { supabase } from "../config/supabase";
+import { registerSchema, loginSchema } from "../validations/authValidations";
 
 export class AuthController {
   async register(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
 
-      if (!email || !password) {
-        return res
-          .status(400)
-          .json({ error: "Email and password are required" });
+      const validationResult = registerSchema.safeParse({ email, password });
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: validationResult.error.errors 
+        });
       }
 
       const { error: signUpError } = await supabase.auth.signUp({
@@ -18,6 +21,12 @@ export class AuthController {
       });
 
       if (signUpError) {
+        if (signUpError.message.includes("User already registered")) {
+          return res.status(409).json({ 
+            error: "This email is already registered. Please log in or use another email.",
+            code: "USER_ALREADY_EXISTS"
+          });
+        }
         return res.status(400).json({ error: signUpError.message });
       }
 
@@ -46,10 +55,13 @@ export class AuthController {
     try {
       const { email, password } = req.body;
 
-      if (!email || !password) {
-        return res
-          .status(400)
-          .json({ error: "Email and password are required" });
+      // Validate input
+      const validationResult = loginSchema.safeParse({ email, password });
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: validationResult.error.errors 
+        });
       }
 
       const { data, error } = await supabase.auth.signInWithPassword({

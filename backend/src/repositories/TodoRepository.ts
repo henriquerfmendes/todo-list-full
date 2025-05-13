@@ -10,7 +10,7 @@ export class TodoRepository implements ITodoRepository {
   private getAuthClient(token: string) {
     return createClient(
       process.env.SUPABASE_URL || "",
-      process.env.SUPABASE_KEY || "", 
+      process.env.SUPABASE_KEY || "",
       {
         global: {
           headers: {
@@ -26,11 +26,6 @@ export class TodoRepository implements ITodoRepository {
     userId: string,
     token: string
   ): Promise<Todo> {
-    console.log("Criando todo com userId:", userId);
-    console.log("Token:", token ? "Presente" : "Ausente");
-    console.log("Tipo do userId:", typeof userId);
-    console.log("Valor do userId:", userId);
-
     const supabaseAuth = this.getAuthClient(token);
 
     const todoWithUserId = {
