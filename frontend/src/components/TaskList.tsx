@@ -6,6 +6,7 @@ import TaskItem from "./TaskItem";
 import TaskOrderSelector from "./TaskOrderSelector";
 import TaskStats from "./TaskStats";
 import { useState } from "react";
+import Navbar from "./Navbar";
 
 function TaskList() {
   const [ordenation, setOrdenation] = useState<OrdenationType>("default");
@@ -31,8 +32,9 @@ function TaskList() {
   const orderedTasks = orderTasks(items, ordenation);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 py-8">
-      <div className="container mx-auto max-w-2xl px-4">
+    <div className="min-h-screen bg-gray-900 text-gray-100">
+      <Navbar />
+      <div className="container mx-auto max-w-2xl px-4 py-8">
         <header className="mb-8">
           <h1 className="text-3xl text-center font-bold text-white">
             Task Manager

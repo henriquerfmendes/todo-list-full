@@ -15,13 +15,15 @@ function TaskStats({ tasks }: TaskStatsProps) {
         <div className="flex items-center gap-2" data-testid="pending-stats">
           <div className="h-3 w-3 rounded-full bg-amber-400"></div>
           <span className="text-gray-300">
-            Pending: <span className="font-bold text-amber-400">{pendingCount}</span>
+            Pending:{" "}
+            <span className="font-bold text-amber-400">{pendingCount}</span>
           </span>
         </div>
         <div className="flex items-center gap-2" data-testid="completed-stats">
           <div className="h-3 w-3 rounded-full bg-green-400"></div>
           <span className="text-gray-300">
-            Completed: <span className="font-bold text-green-400">{completedCount}</span>
+            Completed:{" "}
+            <span className="font-bold text-green-400">{completedCount}</span>
           </span>
         </div>
         <div className="flex items-center gap-2" data-testid="total-stats">

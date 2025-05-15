@@ -1,7 +1,13 @@
-import { Fragment } from 'react';
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import { OrdenationType } from './OrderTasks';
+import { Fragment } from "react";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { OrdenationType } from "./OrderTasks";
 
 interface TaskOrderSelectorProps {
   ordenation: OrdenationType;
@@ -9,27 +15,31 @@ interface TaskOrderSelectorProps {
 }
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
-function TaskOrderSelector({ ordenation, setOrdenation }: TaskOrderSelectorProps) {
+function TaskOrderSelector({
+  ordenation,
+  setOrdenation,
+}: TaskOrderSelectorProps) {
   const orderOptions = {
     default: "Creation date",
     alphabetical: "Alphabetical",
     pending: "Pending",
-    completed: "Completed"
+    completed: "Completed",
   };
 
   return (
     <div className="mb-6 flex items-center justify-center gap-3">
-      <span className="text-sm font-medium text-gray-300">
-        Order by
-      </span>
+      <span className="text-sm font-medium text-gray-300">Order by</span>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <MenuButton className="inline-flex w-64 justify-between items-center rounded-md bg-gray-800 px-4 py-2 text-sm font-medium text-gray-300 border border-gray-700 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
             {orderOptions[ordenation]}
-            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+            <ChevronDownIcon
+              className="-mr-1 h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
           </MenuButton>
         </div>
 
@@ -50,8 +60,8 @@ function TaskOrderSelector({ ordenation, setOrdenation }: TaskOrderSelectorProps
                     <button
                       onClick={() => setOrdenation(option)}
                       className={classNames(
-                        active ? 'bg-gray-700 text-gray-200' : 'text-gray-300',
-                        'block w-full text-left px-4 py-2 text-sm'
+                        active ? "bg-gray-700 text-gray-200" : "text-gray-300",
+                        "block w-full text-left px-4 py-2 text-sm"
                       )}
                     >
                       {orderOptions[option]}
@@ -65,5 +75,5 @@ function TaskOrderSelector({ ordenation, setOrdenation }: TaskOrderSelectorProps
       </Menu>
     </div>
   );
-} 
+}
 export default TaskOrderSelector;
