@@ -21,6 +21,20 @@ Projeto full stack para gerenciamento de tarefas, construída com Node.js, Expre
 - **Jest**: Framework de testes JavaScript
 - **React Testing Library**: Biblioteca para testar componentes React
 
+## Telas Disponíveis
+
+- **Login**: Autenticação de usuários.
+- **Registro de Usuário**: Criação de nova conta.
+- **Recuperação de Senha**: Solicitação de redefinição de senha por email.
+- **Reset de Senha**: Definição de nova senha a partir do link enviado por email.
+- **Área Logada**: Gerenciamento de tarefas.
+
+## Funcionalidades de Autenticação
+
+- O reset de senha é feito por email enviado pelo Supabase. O usuário recebe um link para redefinir sua senha.
+- Cada usuário pode ter até **50 tarefas ativas** (não deletadas). Ao atingir esse limite, não será possível adicionar novas tarefas até que alguma seja removida.
+- Na área logada, há uma barra de navegação exibindo o nome do usuário (email) e um botão de logout para encerrar a sessão.
+
 ## Pré-requisitos
 
 - Node.js (versão 18 ou superior)
@@ -210,6 +224,11 @@ A documentação completa da API está disponível através do Swagger UI:
 
 ## Funcionalidades do Frontend
 
+- **Login**: Autenticação de usuários.
+- **Registro de Usuário**: Criação de nova conta.
+- **Recuperação de Senha**: Solicitação de redefinição de senha por email.
+- **Reset de Senha**: Definição de nova senha a partir do link enviado por email.
+- **Área Logada**: Gerenciamento de tarefas.
 - **Adicionar Tarefas:** Adicione novas tarefas.
 - **Remover Tarefas:** Remova tarefas que não são mais necessárias.
 - **Alternar Status de Tarefa:** Marque tarefas como concluídas ou pendentes.
@@ -221,6 +240,7 @@ A documentação completa da API está disponível através do Swagger UI:
   - Status concluído
 - **Estatísticas de Tarefas:** Visualize estatísticas como o número total de tarefas, tarefas pendentes e tarefas concluídas.
 - **Interface Responsiva:** A aplicação é projetada para funcionar bem em diferentes tamanhos de tela.
+- **Barra de Navegação:** Na área logada, exibe o nome do usuário (email) e botão de logout.
 
 ## Boas Práticas
 
@@ -258,6 +278,20 @@ Full stack project for task management, built with Node.js, Express, React and T
 - **Headless UI**: Unstyled, accessible components
 - **Jest**: JavaScript testing framework
 - **React Testing Library**: Testing library for React
+
+## Available Screens
+
+- **Login**: User authentication.
+- **User Registration**: Create a new account.
+- **Password Recovery**: Request password reset via email.
+- **Password Reset**: Set a new password using the link sent by email.
+- **Logged Area**: Task management.
+
+## Authentication Features
+
+- Password reset is performed via email sent by Supabase. The user receives a link to reset their password.
+- Each user can have up to **50 active tasks** (not deleted). When this limit is reached, no new tasks can be added until some are removed.
+- In the logged area, there is a navigation bar displaying the user's name (email) and a logout button to end the session.
 
 ## Prerequisites
 
@@ -448,6 +482,11 @@ Complete API documentation is available through Swagger UI:
 
 ## Frontend Features
 
+- **Login**: User authentication.
+- **User Registration**: Create a new account.
+- **Password Recovery**: Request password reset via email.
+- **Password Reset**: Set a new password using the link sent by email.
+- **Logged Area**: Task management.
 - **Add Tasks:** Add new tasks.
 - **Remove Tasks:** Remove tasks that are no longer needed.
 - **Toggle Task Status:** Mark tasks as completed or pending.
@@ -459,6 +498,7 @@ Complete API documentation is available through Swagger UI:
   - Completed status
 - **Task Statistics:** View statistics such as the total number of tasks, pending tasks, and completed tasks.
 - **Responsive Interface:** The application is designed to work well on different screen sizes.
+- **Navigation Bar:** In the logged area, displays the user's name (email) and a logout button.
 
 ## Best Practices
 
