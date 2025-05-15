@@ -167,5 +167,3 @@ To run the tests:
 <div style="display: flex; justify-content: center">
   <img src="/frontend/src/assets/print-task-manager.png " width="600px">
 </div>
-
-testing new deploy
