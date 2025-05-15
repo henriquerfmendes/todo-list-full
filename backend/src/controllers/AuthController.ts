@@ -55,7 +55,6 @@ export class AuthController {
     try {
       const { email, password } = req.body;
 
-      // Validate input
       const validationResult = loginSchema.safeParse({ email, password });
       if (!validationResult.success) {
         return res.status(400).json({ 
@@ -110,6 +109,25 @@ export class AuthController {
     } catch (error) {
       console.error("Error in getUser:", error);
       return res.status(500).json({ error: "Failed to get user data" });
+    }
+  }
+
+  async forgotPassword(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+      if (!email) return res.status(400).json({ error: "Email is required" });
+
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: "http://localhost:3000/auth/reset-password", // URL do frontend
+      });
+
+      if (error) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      return res.json({ message: "If the email exists, a reset link was sent." });
+    } catch (error) {
+      return res.status(500).json({ error: "Failed to process request" });
     }
   }
 }
