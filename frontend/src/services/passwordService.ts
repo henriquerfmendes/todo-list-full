@@ -5,11 +5,16 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_KEY
 );
 
+const API_URL =
+  import.meta.env.MODE === "production"
+    ? import.meta.env.VITE_API_PRD
+    : import.meta.env.VITE_API_URL_DEV;
+
 export async function requestPasswordReset(
   email: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await fetch("/api/auth/forgot-password", {
+    const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
