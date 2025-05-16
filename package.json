@@ -2,10 +2,6 @@
   "name": "todo-list-full",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "scripts": {
     "start:frontend": "cd frontend && npm run dev",
     "start:backend": "cd backend && npm run dev",
@@ -15,13 +11,6 @@
     "install:backend": "cd backend && npm install"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.4",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
     "concurrently": "^8.2.2"
-  },
-  "dependencies": {
-    "react-router": "^6.20.0",
-    "react-router-dom": "^6.20.0"
   }
 }
