@@ -118,7 +118,7 @@ export class AuthController {
       if (!email) return res.status(400).json({ error: "Email is required" });
 
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "http://localhost:3000/auth/reset-password", // URL do frontend
+        redirectTo: `${process.env.FRONTEND_URL}/auth/reset-password`,
       });
 
       if (error) {
