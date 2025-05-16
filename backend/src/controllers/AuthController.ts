@@ -9,9 +9,9 @@ export class AuthController {
 
       const validationResult = registerSchema.safeParse({ email, password });
       if (!validationResult.success) {
-        return res.status(400).json({ 
-          error: "Invalid input", 
-          details: validationResult.error.errors 
+        return res.status(400).json({
+          error: "Invalid input",
+          details: validationResult.error.errors,
         });
       }
 
@@ -22,9 +22,10 @@ export class AuthController {
 
       if (signUpError) {
         if (signUpError.message.includes("User already registered")) {
-          return res.status(409).json({ 
-            error: "This email is already registered. Please log in or use another email.",
-            code: "USER_ALREADY_EXISTS"
+          return res.status(409).json({
+            error:
+              "This email is already registered. Please log in or use another email.",
+            code: "USER_ALREADY_EXISTS",
           });
         }
         return res.status(400).json({ error: signUpError.message });
@@ -57,9 +58,9 @@ export class AuthController {
 
       const validationResult = loginSchema.safeParse({ email, password });
       if (!validationResult.success) {
-        return res.status(400).json({ 
-          error: "Invalid input", 
-          details: validationResult.error.errors 
+        return res.status(400).json({
+          error: "Invalid input",
+          details: validationResult.error.errors,
         });
       }
 
@@ -115,16 +116,15 @@ export class AuthController {
   async forgotPassword(req: Request, res: Response) {
     try {
       const { email } = req.body;
-      console.log("Forgot password request received for:", email);
 
       if (!email) {
-        console.log("No email provided");
-        return res.status(400).json({ success: false, error: "Email is required" });
+        return res
+          .status(400)
+          .json({ success: false, error: "Email is required" });
       }
 
       const redirectTo = `${process.env.FRONTEND_URL}/auth/reset-password`;
-      console.log("Calling supabase.auth.resetPasswordForEmail with redirectTo:", redirectTo);
-  
+
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo,
       });
@@ -133,11 +133,15 @@ export class AuthController {
         console.error("Supabase error:", error.message);
         return res.status(400).json({ success: false, error: error.message });
       }
-      console.log("Reset password request sent to Supabase successfully for:", email);
-      return res.json({ success: true, message: "If the email exists, a reset link was sent." });
+      return res.json({
+        success: true,
+        message: "If the email exists, a reset link was sent.",
+      });
     } catch (error) {
       console.error("Error in forgotPassword:", error);
-      return res.status(500).json({ success: false, error: "Failed to process request" });
+      return res
+        .status(500)
+        .json({ success: false, error: "Failed to process request" });
     }
   }
 }
