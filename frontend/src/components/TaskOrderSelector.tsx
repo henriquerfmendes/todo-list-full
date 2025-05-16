@@ -30,7 +30,7 @@ function TaskOrderSelector({
   };
 
   return (
-    <div className="mb-6 flex items-center justify-center gap-3">
+    <div className="mb-6 flex items-center justify-center gap-3 font-mono">
       <span className="text-sm font-medium text-gray-300">Order by</span>
       <Menu as="div" className="relative inline-block text-left">
         <div>

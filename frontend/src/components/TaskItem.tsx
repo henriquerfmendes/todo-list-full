@@ -51,7 +51,7 @@ function TaskItem({ task, onUpdate, onRemove }: TaskItemProps) {
 
   return (
     <>
-      <li className="flex items-center justify-between py-3 px-3 border-b border-gray-800 hover:bg-gray-800/50 transition-colors rounded-md group">
+      <li className="flex items-center justify-between py-3 px-3 border-b border-gray-800 hover:bg-gray-800/50 transition-colors rounded-md group font-mono">
         <div className="flex items-center flex-1 min-w-0">
           <input
             type="checkbox"

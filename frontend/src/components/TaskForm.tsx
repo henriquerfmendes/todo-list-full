@@ -16,7 +16,7 @@ function TaskForm({ onAddTask }: TaskFormProps) {
   };
 
   return (
-    <form role="form" onSubmit={handleSubmit} className="mb-6">
+    <form role="form" onSubmit={handleSubmit} className="mb-6 font-mono">
       <div className="flex flex-col sm:flex-row gap-4">
         <input
           type="text"

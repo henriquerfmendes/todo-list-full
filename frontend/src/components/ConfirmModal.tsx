@@ -16,7 +16,7 @@ function ConfirmModal({
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-gray-800 p-6 rounded shadow-md w-full max-w-sm">
+      <div className="bg-gray-800 p-6 rounded shadow-md w-full max-w-sm font-mono">
         {title && (
           <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
         )}

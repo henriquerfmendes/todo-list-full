@@ -10,7 +10,7 @@ function TaskStats({ tasks }: TaskStatsProps) {
   const totalCount = tasks.length;
 
   return (
-    <div className="mt-6 bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+    <div className="mt-6 bg-gray-800/50 rounded-lg p-4 border border-gray-700 font-mono">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2" data-testid="pending-stats">
           <div className="h-3 w-3 rounded-full bg-amber-400"></div>

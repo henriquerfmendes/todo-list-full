@@ -36,7 +36,7 @@ function TaskList() {
       <Navbar />
       <div className="container mx-auto max-w-2xl px-4 py-8">
         <header className="mb-8">
-          <h1 className="text-3xl text-center font-bold text-white">
+          <h1 className="text-3xl text-center font-bold text-white font-mono">
             Task Manager
           </h1>
         </header>
