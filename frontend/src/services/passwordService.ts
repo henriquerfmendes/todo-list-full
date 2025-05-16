@@ -14,7 +14,7 @@ export async function requestPasswordReset(
   email: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+    const response = await fetch(`${API_URL}/auth/forgot-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
