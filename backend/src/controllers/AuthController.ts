@@ -115,19 +115,29 @@ export class AuthController {
   async forgotPassword(req: Request, res: Response) {
     try {
       const { email } = req.body;
-      if (!email) return res.status(400).json({ error: "Email is required" });
+      console.log("Forgot password request received for:", email);
 
+      if (!email) {
+        console.log("No email provided");
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const redirectTo = `${process.env.FRONTEND_URL}/auth/reset-password`;
+      console.log("Calling supabase.auth.resetPasswordForEmail with redirectTo:", redirectTo);
+  
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${process.env.FRONTEND_URL}/auth/reset-password`,
+        redirectTo,
       });
 
       if (error) {
-        return res.status(400).json({ error: error.message });
+        console.error("Supabase error:", error.message);
+        return res.status(400).json({ success: false, error: error.message });
       }
-
-      return res.json({ message: "If the email exists, a reset link was sent." });
+      console.log("Reset password request sent to Supabase successfully for:", email);
+      return res.json({ success: true, message: "If the email exists, a reset link was sent." });
     } catch (error) {
-      return res.status(500).json({ error: "Failed to process request" });
+      console.error("Error in forgotPassword:", error);
+      return res.status(500).json({ success: false, error: "Failed to process request" });
     }
   }
 }

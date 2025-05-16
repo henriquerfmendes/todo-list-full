@@ -16,7 +16,8 @@ export async function requestPasswordReset(
     });
 
     const data = await response.json();
-    if (response.ok) {
+    console.log("Response from forgot-password:", data);
+    if (data.success) {
       return { success: true };
     } else {
       return {
