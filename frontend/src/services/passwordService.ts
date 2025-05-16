@@ -7,7 +7,7 @@ const supabase = createClient(
 
 const API_URL =
   import.meta.env.MODE === "production"
-    ? import.meta.env.VITE_API_PRD
+    ? import.meta.env.VITE_API_URL_PRD
     : import.meta.env.VITE_API_URL_DEV;
 
 export async function requestPasswordReset(
