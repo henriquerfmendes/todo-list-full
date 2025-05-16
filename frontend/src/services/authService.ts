@@ -11,6 +11,11 @@ class AuthService {
       ...((options.headers as Record<string, string>) || {}),
     };
 
+    const API_URL =
+      import.meta.env.MODE === "production"
+        ? import.meta.env.VITE_API_URL_PRD
+        : import.meta.env.VITE_API_URL_DEV;
+
     if (requiresAuth) {
       const session = this.getSession();
       if (!session) {
@@ -19,7 +24,7 @@ class AuthService {
       headers["Authorization"] = `Bearer ${session.access_token}`;
     }
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, {
+    const response = await fetch(`${API_URL}${endpoint}`, {
       ...options,
       headers,
     });

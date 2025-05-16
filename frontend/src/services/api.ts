@@ -9,6 +9,11 @@ const mapApiTaskToTask = (apiTask: ApiTask): Task => ({
 });
 
 async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const API_URL =
+    import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_API_URL_PRD
+      : import.meta.env.VITE_API_URL_DEV;
+
   const session = authService.getSession();
 
   if (!session || authService.isTokenExpired()) {
@@ -21,7 +26,7 @@ async function fetchWithAuth(url: string, options: RequestInit = {}) {
     ...options.headers,
   };
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
+  const response = await fetch(`${API_URL}${url}`, {
     ...options,
     headers,
   });
