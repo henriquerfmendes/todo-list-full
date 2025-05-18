@@ -38,4 +38,8 @@ app.post("/api/auth/forgot-password", async (req: Request, res: Response) => {
   await authController.forgotPassword(req, res);
 });
 
+app.get("/api/auth/session", async (req: Request, res: Response) => {
+  await authController.getSession(req, res);
+});
+
 export default app;

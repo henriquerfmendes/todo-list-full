@@ -1,19 +1,13 @@
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_KEY
-);
-
-const API_URL =
-  import.meta.env.MODE === "production"
-    ? import.meta.env.VITE_API_URL_PRD
-    : import.meta.env.VITE_API_URL_DEV;
+import { getSupabase } from "./supabaseService";
 
 export async function requestPasswordReset(
   email: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    const API_URL = import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_API_PRD
+      : import.meta.env.VITE_API_URL_DEV;
+
     const response = await fetch(`${API_URL}/auth/forgot-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -38,6 +32,7 @@ export async function resetPassword(
   password: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    const supabase = getSupabase();
     const { error } = await supabase.auth.updateUser({ password });
     if (error) {
       return { success: false, error: error.message };

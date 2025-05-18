@@ -144,4 +144,24 @@ export class AuthController {
         .json({ success: false, error: "Failed to process request" });
     }
   }
+
+  async getSession(req: Request, res: Response) {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'No token provided' });
+      }
+
+      const { data: { session }, error } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        return res.status(401).json({ error: 'Invalid session' });
+      }
+
+      return res.json({ session });
+    } catch (error) {
+      console.error("Error getting session:", error);
+      return res.status(500).json({ error: "Failed to get session" });
+    }
+  }
 }
