@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { TodoController } from "../controllers/TodoController";
-import { authMiddleware } from '../middleware/auth';
+import { authMiddleware } from '../middleware/authMiddleware';
 import { TodoService } from "../services/TodoService";
 import { TodoRepository } from "../repositories/TodoRepository";
 

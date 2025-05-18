@@ -1,45 +1,45 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import todoRoutes from "./routes/todoRoutes";
-import { AuthController } from "./controllers/AuthController";
-import { authMiddleware } from "./middleware/auth";
+import { config } from "dotenv";
 import swaggerDocument from "./docs/swagger.json";
+import { errorHandler } from "./middleware/errorHandler";
+import { authRoutes } from "./routes/authRoutes";
+import { userRoutes } from "./routes/userRoutes";
+import todoRoutes from "./routes/todoRoutes";
+
+config();
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://mytaskmanager.up.railway.app"
+];
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-const authController = new AuthController();
-
-app.post('/api/auth/register', async (req: Request, res: Response) => {
-  await authController.register(req, res);
-});
-app.post('/api/auth/login', async (req: Request, res: Response) => {
-  await authController.login(req, res);
-});
-app.post('/api/auth/logout', async (req: Request, res: Response) => {
-  await authController.logout(req, res);
-});
-
-app.use('/api/todos', todoRoutes);
-
-app.get('/api/user', (req, res, next) => {
-    authMiddleware(req, res, next);
-}, (req, res) => {
-    authController.getUser(req, res);
-  }
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
 );
 
-app.post("/api/auth/forgot-password", async (req: Request, res: Response) => {
-  await authController.forgotPassword(req, res);
-});
+app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get("/api/auth/session", async (req: Request, res: Response) => {
-  await authController.getSession(req, res);
-});
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/todos', todoRoutes);
+
+app.use(errorHandler);
 
 export default app;

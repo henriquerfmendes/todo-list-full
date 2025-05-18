@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { TodoService } from "../services/TodoService";
-import { getAuthInfo } from "../middleware/auth";
+import { getAuthInfo } from "../middleware/authMiddleware";
 
 export class TodoController {
   constructor(private todoService: TodoService) {}
