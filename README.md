@@ -2,6 +2,8 @@
 
 Projeto full stack para gerenciamento de tarefas, construída com Node.js, Express, React e TypeScript.
 
+Deploy em:  **https://mytaskmanager.up.railway.app/**
+
 ## Tecnologias Utilizadas
 
 ### Backend
@@ -259,6 +261,8 @@ A documentação completa da API está disponível através do Swagger UI:
 # Task Manager - To-do List - Full Stack Project - English
 
 Full stack project for task management, built with Node.js, Express, React and TypeScript.
+
+Deployed in:  **https://mytaskmanager.up.railway.app/**
 
 ## Technologies Used
 
